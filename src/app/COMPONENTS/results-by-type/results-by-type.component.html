@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <div class="d-flex topBtns">
+        <form action="">
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="searchText" name="search">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+        </form>
+        <button (click)="searchText=''" class="btn">Clear Search</button>
+        <button (click)="refresh()" class="btn">Refresh</button>
+        <button (click)="isAsc=!isAsc" class="btn">asc/desc</button>
+
+    </div>
+    <table *ngIf="isList" class="table table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Poster</th>
+        </tr>
+        <tr *ngFor="let item of items | filerByTitleYear:searchText | sort:isAsc">
+            <td>
+                <p *ngIf="!itemToEdit||itemToEdit!=item" (click)="itemToEdit=item">{{item.Title}}</p>
+                <input *ngIf="itemToEdit==item" type="text" [(ngModel)]="item.Title" #edittedItem='ngModel'
+                    (blur)="postName(edittedItem)">
+            </td>
+            <td>{{item.Year|year}}</td>
+            <td>
+                <img *ngIf="item.Poster" (click)="showDetails(item)" class="imgSize" src="{{item.Poster}}" alt="">
+            </td>
+        </tr>
+    </table>
+    <div class="row" *ngIf="!isList">
+        <div class="col-12 col-md-6 col-lg-3" *ngFor="let item of items | filerByTitleYear:searchText | sort:isAsc">
+            <div class="card">
+                <img *ngIf="item.Poster" [src]="item.Poster" class="card-img-top gridImg" alt="">
+                <div class="card-body">
+                    <h5 class="card-title" *ngIf="!itemToEdit||itemToEdit!=item" (click)="itemToEdit=item">
+                        {{item.Title}}
+                    </h5>
+                    <input class="card-title" *ngIf="itemToEdit==item" type="text" [(ngModel)]="item.Title"
+                        #edittedItem='ngModel' (blur)="postName(edittedItem)">
+                    <p class="card-text">{{item.Year|year}}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="card">
+    <img *ngIf="item.Poster" [src]="item.Poster" class="card-img-top gridImg" alt="">
+    <div class="card-body">
+        <h5 class="card-title">{{item.Title}}
+        </h5>
+        <p class="card-text">{{item.Year|year}}</p>
+    </div>
+</div>
+<a href="/" class="close">X</a>
