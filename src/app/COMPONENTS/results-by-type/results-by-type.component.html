@@ -32,7 +32,8 @@
     <div class="row" *ngIf="!isList">
         <div class="col-12 col-md-6 col-lg-3" *ngFor="let item of items | filerByTitleYear:searchText | sort:isAsc">
             <div class="card">
-                <img *ngIf="item.Poster" [src]="item.Poster" class="card-img-top gridImg" alt="">
+                <img *ngIf="item.Poster" (click)="showDetails(item)" [src]="item.Poster" class="card-img-top gridImg"
+                    alt="">
                 <div class="card-body">
                     <h5 class="card-title" *ngIf="!itemToEdit||itemToEdit!=item" (click)="itemToEdit=item">
                         {{item.Title}}
